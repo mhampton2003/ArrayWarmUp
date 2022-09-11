@@ -1,0 +1,101 @@
+package project0;
+
+import java.io.File;
+import java.util.Scanner;
+
+public class ArrayWarmup {
+
+	public static void main(String[] args) throws Exception {
+		File file = new File("text.txt");
+		Scanner sc = new Scanner(file);
+		Scanner scnr = new Scanner(System.in);
+		String[] myArray = new String[25];
+		int counter = 0;
+		int middle;
+		int bottomHalf = 0;
+		int topHalf = myArray.length;
+		String temp;
+		
+		while (sc.hasNext()) {
+			myArray[counter] = sc.next();
+			System.out.println(myArray[counter]);
+			counter++;
+		}
+
+		System.out.println("");
+		
+		for (int i = 0; i < 26; i++) {
+			for (int j = 1; j < (26 - 1); j++) {
+				if (myArray[j - 1].compareTo(myArray[j]) > 0) {
+					temp = myArray[j - 1];
+					myArray[j - 1] = myArray[j];
+					myArray[j] = temp;
+				}
+			}
+		}
+		
+		for (int i = 0; i < myArray.length; i++) {
+			System.out.println(myArray[i]);
+		}
+	
+		
+		while (bottomHalf <= topHalf) {
+			System.out.println("What word would you like to search for? Enter '0' to stop searching");
+			String userInput;
+			userInput = scnr.next();
+			middle = bottomHalf + (topHalf - bottomHalf) / 2;
+			if (myArray[middle].equals(userInput)) {
+				System.out.println("We found " + userInput + " at index " + middle);
+				topHalf = myArray.length;
+				bottomHalf = 0;
+				//break;
+			}
+			if (userInput.compareTo(myArray[middle]) < 0) {
+				bottomHalf = middle + 1;
+			}
+			else {
+				topHalf = middle - 1;
+			}
+			
+			if (userInput.equals("0")) {
+				System.out.println("quitting");
+				break;
+			}
+			else if (!myArray[middle].equals(userInput)) {
+				System.out.println("We could not find your input of " + userInput + " in the array");
+			}
+		}
+		/*
+		while (bottomHalf <= topHalf) {
+			middle = bottomHalf + (topHalf - bottomHalf) / 2;
+			if (myArray[middle].compareTo(userInput) < 0) {
+				bottomHalf = middle;
+			}
+			else if (myArray[middle].compareTo(userInput) > 0) {
+				topHalf = middle;
+			}
+			else if (myArray[middle].compareTo(userInput) == 0) {
+				System.out.println("We found " + userInput + " at index " + middle);
+				System.out.println("What word would you like to search for? Enter '0' to stop searching");
+				userInput = scnr.next();
+				bottomHalf = 0;
+				topHalf = myArray.length;
+			}
+			else {
+				
+			}
+			if (!myArray[middle].equals(userInput)){
+				System.out.println("We could not find your input of " + userInput + " in the array");
+				System.out.println("What word would you like to search for? Enter '0' to stop searching");
+				userInput = scnr.next();
+				bottomHalf = 0;
+				topHalf = myArray.length;
+			}
+			else {
+				System.out.println("Stopped searching");
+			}
+		}
+		*/
+		
+	}
+}
